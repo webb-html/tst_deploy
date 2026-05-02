@@ -1,0 +1,19 @@
+h1{
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+form{
+    width: 40em;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.small_p{
+    margin: 0;
+}
