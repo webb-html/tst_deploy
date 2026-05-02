@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <link rel='stylesheet' href="static/css/login_style.css">
+</head>
+<h1>Регистрация</h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p class="small_p">
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p class="small_p">
+        {{ form.password.label }}<br>
+        {{ form.password(class="form-control", type="password") }}<br>
+        {% for error in form.password.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p class="small_p">
+        {{ form.password_repeat.label }}<br>
+        {{ form.password_repeat(class="form-control", type="password") }}<br>
+        {% for error in form.password_repeat.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <p class="text-danger-emphasis" role="alert">{{message}}</p>
+</form>
+{% endblock %}
