@@ -8,9 +8,9 @@
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p class="small_p">
-        {{ form.username.label }}<br>
-        {{ form.username(class="form-control") }}<br>
-        {% for error in form.username.errors %}
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
     <div class="alert alert-danger" role="alert">
         {{ error }}
     </div>
@@ -27,5 +27,7 @@
     </p>
     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <a href="/register" class="link">Зарегистрироваться</a>
+    <p class="text-danger-emphasis" role="alert">{{message}}</p>
 </form>
 {% endblock %}

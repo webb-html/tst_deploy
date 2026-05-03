@@ -14,6 +14,14 @@
       <img src="static/img/icon.svg" class="d-inline-block align-text-top icon">
       WebNote
     </a>
+      {% if current_user.is_authenticated %}
+    <div class="flex_div">
+        <p class="navbar-brand small_p">{{ current_user.name }}</p>
+        <img src="static/img/logout.svg" class="icon cursor" alt="Выйти" onclick="document.location='logout'">
+    </div>
+        {% else %}
+        <a class="small_p navbar-brand" href="/login">Войти</a>
+      {% endif %}
   </div>
 </nav>
 </header>

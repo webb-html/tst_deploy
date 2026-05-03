@@ -13,3 +13,21 @@ nav{
 body{
     background-color: #f8f8f8;
 }
+
+.small_p{
+    margin-bottom: 0;
+}
+
+a{
+    color: var(--bs-navbar-brand-color);
+    font-size: var(--bs-navbar-brand-font-size);
+    text-decoration: none;
+}
+
+.flex_div{
+    display: flex;
+}
+
+.cursor{
+    cursor: pointer;
+}
