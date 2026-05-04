@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template
 from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_restful import Api
 
 from forms.login_form import LoginForm
 from forms.register_form import RegisterForm
@@ -7,8 +8,16 @@ from forms.register_form import RegisterForm
 from data import db_session
 from data.users import User
 
+from nt_api import  NoteResource, NoteListResource
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jprB?VYVYOn4_6qm$kEsDo@pB5[_0E^gD%zC'
+api = Api(app)
+
+api.add_resource(NoteListResource, '/api/notes')
+api.add_resource(NoteResource, '/api/notes/<int:id>')
+
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
