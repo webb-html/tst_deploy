@@ -1,0 +1,38 @@
+.directory{
+    border-radius: 0.35em;
+    border: solid 0.05em var(--bs-secondary);
+    padding-left: 0.7em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    font-size: 1.2em;
+    color: var(--bs-secondary-text-emphasis);
+}
+
+.dir-icon{
+    margin-right: 0.3em;
+    padding:0;
+}
+
+.note{
+    margin-left: 2em;
+    border-radius: 0.35em;
+    border: solid 0.05em var(--bs-secondary);
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    color: var(--bs-secondary-text-emphasis);
+    background-color: #eff1f4;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.note_type{
+        margin-top:  0.2em;
+        margin-left: 0.3em;
+        font-size: 0.8em;
+}
+
+.zero-margin{
+    margin-top: 0;
+}

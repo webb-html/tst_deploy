@@ -1,6 +1,8 @@
 from flask import Flask, redirect, render_template
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_restful import Api
+
+from requests import get
 
 from forms.login_form import LoginForm
 from forms.register_form import RegisterForm
@@ -17,16 +19,25 @@ api = Api(app)
 api.add_resource(NoteListResource, '/api/notes')
 api.add_resource(NoteResource, '/api/notes/<int:id>')
 
-
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+APP_URL = 'http://127.0.0.1:8080'
 
 @app.route('/')
 @app.route('/index')
 def index():
+    if current_user.is_authenticated:
+        notes_json = get(f'{APP_URL}/api/notes').json()
+        dir_list = [note['directory'] for note in notes_json['note'] if note['user_id'] == current_user.id]
+        dict_notes = dict()
+        for dir in dir_list:
+            dict_notes[dir] = [note for note in notes_json['note'] if note['user_id'] == current_user.id and
+                               note['directory'] == dir]
+        return render_template('note_list.html', title='Главная',
+                               dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes)
     return render_template('base.html', title='Главная')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
