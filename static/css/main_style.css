@@ -1,3 +1,30 @@
+.button {
+    display: flex;
+    border-radius: 0.35em;
+    border: solid 0.05em var(--bs-secondary);
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    font-size: 1.2em;
+    color: var(--bs-secondary-text-emphasis);
+    box-shadow: inset var(--bs-secondary) 0em -0.1em;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.button:hover{
+    box-shadow: inset var(--bs-secondary) 0em -0.07em;
+}
+
+.grow_button {
+    flex-grow: 1;
+}
+
+.input:focus{
+    outline: none;
+}
+
 .directory{
     border-radius: 0.35em;
     border: solid 0.05em var(--bs-secondary);

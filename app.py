@@ -1,6 +1,7 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_restful import Api
+from flask import request as flask_request
 
 from requests import get
 
@@ -37,7 +38,6 @@ def index():
         return render_template('note_list.html', title='Главная',
                                dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes)
     return render_template('base.html', title='Главная')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -83,6 +83,29 @@ def load_user(user_id):
 def logout():
     logout_user()
     return redirect("/")
+
+@app.route('/user/<user_name>/<note_id>')
+def open_note(user_name, note_id):
+    return jsonify(user_name, note_id)
+
+@app.route('/add_note')
+def add_note():
+    return jsonify('add_note')
+
+@app.route('/search')
+def search():
+    query = flask_request.args.get('search-request')
+    notes_json = get(f'{APP_URL}/api/notes').json()
+    dir_list = [note['directory'] for note in notes_json['note'] if note['user_id'] == current_user.id
+                and (query.lower() in note['title'].lower() or query.lower() in note['content'].lower())]
+    dict_notes = dict()
+    for dir in dir_list:
+            dict_notes[dir] = [note for note in notes_json['note'] if note['user_id'] == current_user.id and
+                               note['directory'] == dir and (query.lower() in note['title'].lower()
+                               or query.lower() in note['content'].lower())]
+    return render_template('search_result.html', title='Главная',
+                                    dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes)
+
 
 if __name__ == '__main__':
     db_session.global_init("db/data.db")
