@@ -30,13 +30,15 @@ APP_URL = 'http://127.0.0.1:8080'
 def index():
     if current_user.is_authenticated:
         notes_json = get(f'{APP_URL}/api/notes').json()
+        type_list = [note['type'] for note in notes_json['note'] if note['user_id'] == current_user.id]
         dir_list = [note['directory'] for note in notes_json['note'] if note['user_id'] == current_user.id]
         dict_notes = dict()
         for dir in dir_list:
             dict_notes[dir] = [note for note in notes_json['note'] if note['user_id'] == current_user.id and
                                note['directory'] == dir]
         return render_template('note_list.html', title='Главная',
-                               dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes)
+                               dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes,
+                               type_list=sorted(list(set(type_list)))[1:])
     return render_template('base.html', title='Главная')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -106,6 +108,18 @@ def search():
     return render_template('search_result.html', title='Главная',
                                     dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes)
 
+@app.route('/filter')
+def _filter():
+    query = flask_request.args.get('filter-request')
+    notes_json = get(f'{APP_URL}/api/notes').json()
+    dir_list = [note['directory'] for note in notes_json['note'] if note['user_id'] == current_user.id
+                and query.lower() in note['type'].lower()]
+    dict_notes = dict()
+    for dir in dir_list:
+        dict_notes[dir] = [note for note in notes_json['note'] if note['user_id'] == current_user.id and
+                           note['directory'] == dir and query.lower() in note['type'].lower()]
+    return render_template('search_result.html', title='Главная',
+                           dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes)
 
 if __name__ == '__main__':
     db_session.global_init("db/data.db")
