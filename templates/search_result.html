@@ -1,6 +1,6 @@
 {% for dir in dir_list %}
     <p class="bg-secondary-subtle directory">
-        <img src="static/img/folder.svg" class="icon dir-icon">
+        <img src="/static/img/folder.svg" class="icon dir-icon">
         {% if dir != '' %}
             {{dir}}
         {% else %}
@@ -10,7 +10,7 @@
     {% for note in dict_notes[dir] %}
         <div class="note">
             <div class="flex_div">
-                <img src="static/img/note.svg" class="icon">
+                <img src="/static/img/note.svg" class="icon">
                 <a class="small_p" href="user/{{current_user.name}}/{{note['id']}}">{{note['title']}}</a>
                 <div style="flex-grow: 1" class="flex_div"></div>
                 <p class="small_p note_type">{{note['type']}}</p>

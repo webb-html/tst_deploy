@@ -55,11 +55,37 @@
 }
 
 .note_type{
-        margin-top:  0.2em;
-        margin-left: 0.3em;
-        font-size: 0.8em;
+    margin-top:  0.2em;
+    margin-left: 0.3em;
+    font-size: 0.8em;
 }
 
 .zero-margin{
     margin-top: 0;
+}
+
+.area{
+    display: flex;
+    border-radius: 0.35em;
+    border: solid 0.05em var(--bs-secondary);
+    color: var(--bs-secondary-text-emphasis);
+    box-shadow: inset var(--bs-secondary) 0em -0.1em;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.title-area{
+    resize: none;
+}
+
+.transparent{
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.bar-icon {
+    padding: 0;
+    margin-bottom: 0.5rem;
 }

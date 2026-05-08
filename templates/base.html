@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-    <link rel='stylesheet' href="static/css/style.css">
+    <link rel='stylesheet' href="/static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/htmx.org/dist/htmx.min.js"></script>
     <title>{{title}}</title>
 </head>
@@ -12,13 +12,13 @@
     <nav class="navbar bg-secondary-subtle">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
-      <img src="static/img/icon.svg" class="d-inline-block align-text-top icon">
+      <img src="/static/img/icon.svg" class="d-inline-block align-text-top icon">
       WebNote
     </a>
       {% if current_user.is_authenticated %}
     <div class="flex_div">
         <p class="navbar-brand small_p">{{ current_user.name }}</p>
-        <img src="static/img/logout.svg" class="icon cursor" alt="Выйти" onclick="document.location='logout'">
+        <img src="/static/img/logout.svg" class="icon cursor" alt="Выйти" onclick="document.location='/logout'">
     </div>
         {% else %}
         <a class="small_p navbar-brand" href="/login">Войти</a>

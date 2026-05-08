@@ -7,6 +7,7 @@ from requests import get
 
 from forms.login_form import LoginForm
 from forms.register_form import RegisterForm
+from forms.redact_note_form import RedactForm
 
 from data import db_session
 from data.users import User
@@ -36,7 +37,7 @@ def index():
         for dir in dir_list:
             dict_notes[dir] = [note for note in notes_json['note'] if note['user_id'] == current_user.id and
                                note['directory'] == dir]
-        return render_template('note_list.html', title='Главная',
+        return render_template('note_list_template.html', title='Главная',
                                dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes,
                                type_list=sorted(list(set(type_list)))[1:])
     return render_template('base.html', title='Главная')
@@ -86,9 +87,18 @@ def logout():
     logout_user()
     return redirect("/")
 
-@app.route('/user/<user_name>/<note_id>')
+@app.route('/user/<user_name>/<int:note_id>')
 def open_note(user_name, note_id):
-    return jsonify(user_name, note_id)
+    notes_json = get(f'{APP_URL}/api/notes').json()
+    if current_user.is_authenticated:
+        current_note = list(filter(lambda x: x['id'] == note_id, notes_json['note']))[0]
+        if current_user.id == current_note['user_id']:
+            form = RedactForm()
+            form.textarea.data = current_note['content']
+            return render_template('redact_note_template.html', form=form,
+                                   title=current_note['title'], directory=current_note['directory'],
+                                   type=current_note['type'])
+    return redirect('/')
 
 @app.route('/add_note')
 def add_note():

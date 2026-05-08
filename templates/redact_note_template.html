@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+        <link rel='stylesheet' href="/static/css/main_style.css">
+    </head>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="flex_div">
+            {{ form.title(class="button grow_button input", placeholder="Заголовок", value=title) }}
+        </div>
+        <div class="flex_div">
+            {{ form.directory(class="button grow_button input", style="margin-right: 0.2em;",
+            placeholder="Папка", value=directory) }}
+            {{ form.type(class="button grow_button input", placeholder="Тема", value=type) }}
+            </div>
+        <div class="flex_div">
+            <div class="grow_button"></div>
+            <button type="submit" name="submit" class="transparent">
+                <img src="/static/img/save.svg" class="icon bar-icon" alt="Сохранить">
+            </button>
+        </div>
+        <div class="form-floating area">
+            {{ form.textarea(class="form-control", placeholder="Начните писать записку!", id="content-area",
+            style="min-height: 30em;") }}
+          <label for="content-area">Содержание</label>
+        </div>
+    </form>
+{% endblock %}
