@@ -27,23 +27,36 @@ class NoteResource(Resource):
 
     def delete(self, id):
         abort_if_news_not_found(id)
-        session = db_session.create_session()
-        note = session.get(Note, id)
-        session.delete(note)
-        session.commit()
+        db_sess = db_session.create_session()
+        note = db_sess.get(Note, id)
+        db_sess.delete(note)
+        db_sess.commit()
+        return jsonify({'success': 'OK'})
+    
+    def put(self, id):
+        args = parser.parse_args()
+        abort_if_news_not_found(id)
+        db_sess = db_session.create_session()
+        note = db_sess.get(Note, id)
+        note.title = args['title']
+        note.content = args['content']
+        note.directory = args['directory']
+        note.type = args['type']
+        note.public = args['public']
+        db_sess.commit()
         return jsonify({'success': 'OK'})
 
 
 class NoteListResource(Resource):
     def get(self):
-        session = db_session.create_session()
-        notes = session.query(Note).all()
+        db_sess = db_session.create_session()
+        notes = db_sess.query(Note).all()
         return jsonify({'note': [i.to_dict(
             only=('id','title', 'content', 'directory', 'type', 'public', 'user_id')) for i in notes]})
 
     def post(self):
         args = parser.parse_args()
-        session = db_session.create_session()
+        db_sess = db_session.create_session()
         note = Note(
             title=args['title'],
             content=args['content'],
@@ -52,6 +65,6 @@ class NoteListResource(Resource):
             public=args['public'],
             user_id=args['user_id'],
         )
-        session.add(note)
-        session.commit()
+        db_sess.add(note)
+        db_sess.commit()
         return jsonify({'success': 'OK'})

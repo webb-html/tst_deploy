@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from flask_restful import Api
 from flask import request as flask_request
 
-from requests import get
+from requests import get, post, put
 
 from forms.login_form import LoginForm
 from forms.register_form import RegisterForm
@@ -87,13 +87,19 @@ def logout():
     logout_user()
     return redirect("/")
 
-@app.route('/user/<user_name>/<int:note_id>')
+@app.route('/user/<user_name>/<int:note_id>', methods=['GET', 'POST'])
 def open_note(user_name, note_id):
     notes_json = get(f'{APP_URL}/api/notes').json()
-    if current_user.is_authenticated:
+    form = RedactForm()
+    current_note = list(filter(lambda x: x['id'] == note_id, notes_json['note']))[0]
+    if form.validate_on_submit():
+        put(f'{APP_URL}/api/notes/{note_id}', json={'title': form.title.data, 'content': form.textarea.data,
+                                               'directory': form.directory.data, 'type': form.type.data,
+                                               'public': form.public.data, 'user_id': current_note['user_id']})
+        notes_json = get(f'{APP_URL}/api/notes').json()
         current_note = list(filter(lambda x: x['id'] == note_id, notes_json['note']))[0]
+    if current_user.is_authenticated:
         if current_user.id == current_note['user_id']:
-            form = RedactForm()
             form.textarea.data = current_note['content']
             return render_template('redact_note_template.html', form=form,
                                    title=current_note['title'], directory=current_note['directory'],
