@@ -21,7 +21,7 @@
     flex-grow: 1;
 }
 
-.input:focus{
+input:focus{
     outline: none;
 }
 
@@ -74,10 +74,6 @@
     margin-bottom: 0.5rem;
 }
 
-.title-area{
-    resize: none;
-}
-
 .transparent{
     border: none;
     background-color: transparent;
@@ -86,6 +82,14 @@
 }
 
 .bar-icon {
-    padding: 0;
     margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.shift {
+    margin-right: 0.2em;
+}
+
+input[type="checkbox"] {
+  accent-color: #dee2e6;
 }

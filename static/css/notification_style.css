@@ -1,0 +1,32 @@
+html, body, main {
+    height: 70%
+}
+
+main {
+    display: flex;
+}
+
+form {
+    height: 70%;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+.warning_icon {
+    padding: 0;
+    padding-bottom: 0.2125em;
+}
+
+div {
+    justify-content: center;
+}
+
+a, button {
+    margin: 1em;
+}
+
+.center {
+    margin-left: 4.5em;
+}

@@ -7,18 +7,22 @@
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <div class="flex_div">
-            {{ form.title(class="button grow_button input", placeholder="Заголовок", value=title) }}
+            {{ form.title(class="button grow_button", placeholder="Заголовок", value=title) }}
         </div>
         <div class="flex_div">
-            {{ form.directory(class="button grow_button input", style="margin-right: 0.2em;",
+            {{ form.directory(class="button grow_button shift",
             placeholder="Папка", value=directory) }}
-            {{ form.type(class="button grow_button input", placeholder="Тема", value=type) }}
+            {{ form.type(class="button grow_button ", placeholder="Тема", value=type) }}
             </div>
         <div class="flex_div">
+            <p class="small_p shift">Открыт для просмотра</p>
+            {{ form.public }}
             <div class="grow_button"></div>
             <button type="submit" name="submit" class="transparent">
                 <img src="/static/img/save.svg" class="icon bar-icon" alt="Сохранить">
             </button>
+            <img src="/static/img/delete.svg" class="icon bar-icon"
+                 onclick="document.location='/user/{{user_name}}/{{note_id}}/delete'">
         </div>
         <div class="form-floating area">
             {{ form.textarea(class="form-control", placeholder="Начните писать записку!", id="content-area",

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+        <link rel='stylesheet' href="/static/css/main_style.css">
+    </head>
+    <div class="flex_div">
+        <input class="button grow_button" placeholder="Заголовок" value='{{title}}' disabled/>
+    </div>
+    <div class="flex_div">
+        <input class="button grow_button shift" placeholder="Папка" value='{{directory}}' disabled/>
+        <input class="button grow_button" placeholder="Тема" value='{{type}}' disabled/>
+    </div>
+    <div class="form-floating area">
+        <textarea class="form-control" placeholder="Начните писать записку!" id="content-area"
+                  style="min-height: 30em;" disabled>{{textarea}}</textarea>
+        <label for="content-area">Содержание</label>
+    </div>
+    </form>
+{% endblock %}
