@@ -41,7 +41,7 @@ def index():
         return render_template('note_list_template.html', title='Главная',
                                dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes,
                                type_list=sorted(list(set(type_list)))[1:])
-    return render_template('base.html', title='Главная')
+    return render_template('please_register_template.html', title='Главная')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -111,7 +111,7 @@ def open_note(user_name, note_id):
                                directory=current_note['directory'], type=current_note['type'],
                                textarea=current_note['content'])
     else:
-        return redirect('/')
+        return render_template("don't_have_permission.html")
 
 @app.route('/user/<user_name>/<int:note_id>/delete', methods=['GET', 'POST'])
 def delete_note(user_name, note_id):
@@ -125,7 +125,7 @@ def delete_note(user_name, note_id):
         if current_user.id == current_note['user_id']:
             return render_template('delete_note_template.html', form=form, user_name=user_name,
                                    note_id=note_id)
-    return redirect('/')
+    return render_template("don't_have_permission.html")
 
 @app.route('/add_note')
 def add_note():

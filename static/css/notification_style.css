@@ -23,10 +23,18 @@ div {
     justify-content: center;
 }
 
-a, button {
+.margin, button {
     margin: 1em;
 }
 
-.center {
+.center-dl {
     margin-left: 4.5em;
+}
+
+.center-rg {
+    margin-left: 2em;
+}
+
+.center-pr {
+    margin-left: 3.7em;
 }

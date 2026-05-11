@@ -4,7 +4,7 @@
 <head>
     <link rel='stylesheet' href="/static/css/notification_style.css">
 </head>
-<form action="" method="post" novalidate class="center">
+<form action="" method="post" novalidate class="center-dl">
     {{ form.hidden_tag() }}
     <h1>
         <img src="/static/img/warning.svg" class="icon warning_icon">
@@ -12,7 +12,7 @@
     </h1>
     <div class="flex_div">
     {{ form.submit(class="alert alert-danger", style="margin: 1em;") }}
-    <a href="/user/{{user_name}}/{{note_id}}" class="alert alert-secondary"> Вернутся</a>
+    <a href="/user/{{user_name}}/{{note_id}}" class="alert alert-secondary margin"> Вернутся</a>
     </div>
 </form>
 {% endblock %}
