@@ -1,4 +1,4 @@
-h1{
+h1{ /* заголовок */
     margin-bottom: 1em;
     display: flex;
     justify-content: center;
@@ -8,7 +8,7 @@ form{
     width: 40em;
 }
 
-main{
+main{ /* выравнивание по центру страницы */
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -16,5 +16,5 @@ main{
 
 .link{
     text-decoration: none;
-    color: rgba(var(--bs-link-color-rgb));
+    color: rgba(var(--bs-link-color-rgb)); /* так выглядит использование переменных bootstrap */
 }

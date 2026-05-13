@@ -1,4 +1,4 @@
-html, body, main {
+html, body, main { /* увеличение размеров относительно всего экрана */
     height: 70%
 }
 
@@ -14,7 +14,7 @@ h1 {
     font-size: 3em;
 }
 
-.warning_icon {
+.warning_icon { /* иконка для предупреждений */
     padding: 0;
     padding-bottom: 0.2125em;
 }
@@ -27,18 +27,18 @@ div {
     margin: 1em;
 }
 
-.center-dl {
+.center-dl { /* различные отступы, для удаления */
     margin-left: 4.5em;
 }
 
-.center-rg {
+.center-rg { /* для просьбы зарегистрироваться или войти */
     margin-left: 2em;
 }
 
-.center-pr {
+.center-pr { /* для сообщения "нет доступа" */
     margin-left: 3.7em;
 }
 
-.center-nf {
+.center-nf { /* для сообщения "не найдено" */
     margin-left: 6em;
 }

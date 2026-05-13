@@ -1,33 +1,33 @@
-@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css'); /* подключение bootstrap */
 
-.icon{
+.icon { /* любая иконка */
     width: 1em;
     padding-top: 0.2125em;
 }
 
-nav{
+nav {
     box-shadow: var(--bs-gray) 0.1em 0px 0.4em 0px;
     margin-bottom: 2em;
 }
 
-body{
+body {
     background-color: #f8f8f8;
 }
 
-.small_p{
+.small_p { /* параграф без отступов */
     margin-bottom: 0;
 }
 
-a{
+a { /* гиперссылки */
     color: var(--bs-navbar-brand-color);
     font-size: var(--bs-navbar-brand-font-size);
     text-decoration: none;
 }
 
-.flex_div{
+.flex_div { /* добавляет свойство flex объекту, когда необходимо добавить только его */
     display: flex;
 }
 
-.cursor{
+.cursor { /* курсор при наведении на объект */
     cursor: pointer;
 }

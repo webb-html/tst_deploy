@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SubmitField, TextAreaField
 
-
-class RedactForm(FlaskForm):
+class RedactForm(FlaskForm): # форма для редактирования заметок
     title = StringField()
     directory = StringField()
     type = StringField()

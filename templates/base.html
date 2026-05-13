@@ -3,31 +3,32 @@
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-    <link rel="icon" href="/static/img/icon.svg">
+    <link rel="icon" href="/static/img/icon.svg"> <!-- иконка сайта-->
     <link rel='stylesheet' href="/static/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org/dist/htmx.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org/dist/htmx.min.js"></script> <!-- подключение HTMX -->
     <title>WebNote</title>
 </head>
 <body>
 <header>
-    <nav class="navbar bg-secondary-subtle">
+    <nav class="navbar bg-secondary-subtle"> <!-- верхний заголовок -->
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
       <img src="/static/img/icon.svg" class="d-inline-block align-text-top icon">
       WebNote
     </a>
-      {% if current_user.is_authenticated %}
+      {% if current_user.is_authenticated %} <!-- зарегистрирован -->
     <div class="flex_div">
         <p class="navbar-brand small_p">{{ current_user.name }}</p>
         <img src="/static/img/logout.svg" class="icon cursor" alt="Выйти" onclick="document.location='/logout'">
+        <!-- onclick отвечает за код выполняющийся при нажатии, перекидывает на страницу -->
     </div>
-        {% else %}
+        {% else %} <!-- не зарегистрирован -->
         <a class="small_p navbar-brand" href="/login">Войти</a>
       {% endif %}
   </div>
 </nav>
 </header>
-<main role="main" class="container">
+<main role="main" class="container"> <!-- основной контейнер -->
     {% block content %}{% endblock %}
 </main>
 </body>

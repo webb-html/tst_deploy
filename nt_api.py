@@ -3,7 +3,7 @@ from data.notes import Note
 from flask_restful import reqparse, abort, Resource
 from flask import jsonify
 
-parser = reqparse.RequestParser()
+parser = reqparse.RequestParser() # создание парсера
 parser.add_argument('title', required=True)
 parser.add_argument('content', required=True)
 parser.add_argument('directory', required=True)
@@ -11,22 +11,22 @@ parser.add_argument('type', required=True)
 parser.add_argument('public', required=True, type=bool)
 parser.add_argument('user_id', required=True, type=int)
 
-def abort_if_news_not_found(id):
+def abort_if_news_not_found(id): # создать ошибку если не найдено
     session = db_session.create_session()
     note = session.query(Note).get(id)
     if not note:
         abort(404, message=f"note {id} not found")
 
 
-class NoteResource(Resource):
-    def get(self, id):
+class NoteResource(Resource): # api для одной заметки
+    def get(self, id): # получение
         abort_if_news_not_found(id)
         db_sess = db_session.create_session()
         note = db_sess.get(Note, id)
         return jsonify({'note': note.to_dict(
             only=('title', 'content', 'directory', 'type', 'public', 'user_id'))})
 
-    def delete(self, id):
+    def delete(self, id): # удаление
         abort_if_news_not_found(id)
         db_sess = db_session.create_session()
         note = db_sess.get(Note, id)
@@ -34,7 +34,7 @@ class NoteResource(Resource):
         db_sess.commit()
         return jsonify({'success': 'OK'})
     
-    def put(self, id):
+    def put(self, id): # изменение (используется для сохранения файлов)
         args = parser.parse_args()
         abort_if_news_not_found(id)
         db_sess = db_session.create_session()
@@ -48,14 +48,14 @@ class NoteResource(Resource):
         return jsonify({'success': 'OK'})
 
 
-class NoteListResource(Resource):
-    def get(self):
+class NoteListResource(Resource): # для списка
+    def get(self): # получение
         db_sess = db_session.create_session()
         notes = db_sess.query(Note).all()
         return jsonify({'note': [i.to_dict(
             only=('id','title', 'content', 'directory', 'type', 'public', 'user_id')) for i in notes]})
 
-    def post(self):
+    def post(self): # добавление
         args = parser.parse_args()
         db_sess = db_session.create_session()
         note = Note(

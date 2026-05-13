@@ -4,32 +4,34 @@
     <head>
         <link rel='stylesheet' href="/static/css/main_style.css">
     </head>
-    <form action="" method="post" novalidate>
+    <form action="" method="post" novalidate> <!-- Форма для редактирования заметок -->
         {{ form.hidden_tag() }}
         <div class="flex_div">
-            {{ form.title(class="button grow_button", placeholder="Заголовок", value=title) }}
+            {{ form.title(class="button grow", placeholder="Заголовок", value=title) }} <!-- поле заголовка -->
         </div>
-        <div class="flex_div">
-            {{ form.directory(class="button grow_button shift",
+        <div class="flex_div"> <!-- поля папки и темы -->
+            {{ form.directory(class="button grow shift",
             placeholder="Папка", value=directory) }}
-            {{ form.type(class="button grow_button ", placeholder="Тема", value=type) }}
+            {{ form.type(class="button grow ", placeholder="Тема", value=type) }}
             </div>
-        <div class="flex_div">
+        <div class="flex_div"> <!-- панель управления -->
             <p class="small_p shift">Открыт для просмотра</p>
             {{ form.public }}
-            <div class="grow_button"></div>
-            <img src="/static/img/download.svg" class="icon bar-icon"
-                 onclick="document.location='/user/{{user_name}}/{{note_id}}/download'">
-            <button type="submit" name="submit" class="transparent">
+            <div class="grow"></div>
+            <img src="/static/img/download.svg" class="icon bar-icon" alt="загрузить"
+                 onclick="document.location='/user/{{user_name}}/{{note_id}}/download'"> <!-- загрузить файл -->
+            <button type="submit" name="submit" class="transparent"> <!-- аналогично form.submit() -->
+                <!-- но позволяет положить внутрь картинку -->
                 <img src="/static/img/save.svg" class="icon bar-icon" alt="Сохранить">
             </button>
-            <img src="/static/img/delete.svg" class="icon bar-icon"
-                 onclick="document.location='/user/{{user_name}}/{{note_id}}/delete'">
+            <img src="/static/img/delete.svg" class="icon bar-icon" alt="Удалить"
+                 onclick="document.location='/user/{{user_name}}/{{note_id}}/delete'"> <!-- удалить заметку -->
         </div>
-        <div class="form-floating area">
+        <div class="form-floating area"> <!-- зона с самой запиской -->
             {{ form.textarea(class="form-control", placeholder="Начните писать записку!", id="content-area",
             style="min-height: 30em;") }}
-          <label for="content-area">Содержание</label>
+            <!-- в PyCharm здесь показывает ошибку, тк объект с id генерируется с помощью form.textarea -->
+            <label for="content-area">Содержание</label>
         </div>
     </form>
 {% endblock %}

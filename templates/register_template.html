@@ -5,9 +5,9 @@
     <link rel='stylesheet' href="/static/css/login_style.css">
 </head>
 <h1>Регистрация</h1>
-<form action="" method="post" novalidate>
+<form action="" method="post" novalidate> <!-- форма регистрации -->
     {{ form.hidden_tag() }}
-    <p class="small_p">
+    <p class="small_p"> <!-- логин -->
         {{ form.name.label }}<br>
         {{ form.name(class="form-control") }}<br>
         {% for error in form.name.errors %}
@@ -16,7 +16,7 @@
             </p>
         {% endfor %}
     </p>
-    <p class="small_p">
+    <p class="small_p"> <!-- пароль -->
         {{ form.password.label }}<br>
         {{ form.password(class="form-control", type="password") }}<br>
         {% for error in form.password.errors %}
@@ -25,7 +25,7 @@
             </p>
         {% endfor %}
     </p>
-    <p class="small_p">
+    <p class="small_p"> <!-- пароль еще раз -->
         {{ form.password_repeat.label }}<br>
         {{ form.password_repeat(class="form-control", type="password") }}<br>
         {% for error in form.password_repeat.errors %}

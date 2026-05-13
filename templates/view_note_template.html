@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <!-- для просмотра заметок, отделено от файла с редактированием заметки, тк с flask_wtf нет возможности использовать
+    свойство disabled, тк оно из Bootstrap -->
     <head>
         <link rel='stylesheet' href="/static/css/main_style.css">
     </head>
     <div class="flex_div">
-        <input class="button grow_button" placeholder="Заголовок" value='{{title}}' disabled/>
+        <input class="button grow" placeholder="Заголовок" value='{{title}}' disabled/>
     </div>
     <div class="flex_div">
-        <input class="button grow_button shift" placeholder="Папка" value='{{directory}}' disabled/>
-        <input class="button grow_button" placeholder="Тема" value='{{type}}' disabled/>
+        <input class="button grow shift" placeholder="Папка" value='{{directory}}' disabled/>
+        <input class="button grow" placeholder="Тема" value='{{type}}' disabled/>
     </div>
     <div class="flex_div">
-        <div class="grow_button"></div>
-        <img src="/static/img/download.svg" class="icon bar-icon"
+        <div class="grow"></div>
+        <img src="/static/img/download.svg" class="icon bar-icon" alt="загрузить"
                      onclick="document.location='/user/{{user_name}}/{{note_id}}/download'"/>
     </div>
     <div class="form-floating area">

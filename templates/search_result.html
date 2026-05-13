@@ -1,4 +1,4 @@
-{% for dir in dir_list %}
+{% for dir in dir_list %} <!-- для HTMX после выполнения запроса заменит div в redact_note_template с указанным id -->
     <p class="bg-secondary-subtle directory">
         <img src="/static/img/folder.svg" class="icon dir-icon">
         {% if dir != '' %}

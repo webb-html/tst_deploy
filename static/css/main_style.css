@@ -1,4 +1,4 @@
-.button {
+.button { /* внешний вид выглядящий как кнопка*/
     display: flex;
     border-radius: 0.35em;
     border: solid 0.05em var(--bs-secondary);
@@ -13,19 +13,19 @@
     margin-bottom: 0.5rem;
 }
 
-.button:hover{
+.button:hover { /* при наведении на кнопку */
     box-shadow: inset var(--bs-secondary) 0em -0.07em;
 }
 
-.grow_button {
-    flex-grow: 1;
+.grow {
+    flex-grow: 1; /* свойство делает так чтобы объект заполнил все пустое пространство в div*/
 }
 
-input:focus{
+input:focus { /* убирает некрасивую окантовку при нажатии на поле ввода */
     outline: none;
 }
 
-.directory{
+.directory { /* внешний вид папок */
     border-radius: 0.35em;
     border: solid 0.05em var(--bs-secondary);
     padding-left: 0.7em;
@@ -35,12 +35,12 @@ input:focus{
     color: var(--bs-secondary-text-emphasis);
 }
 
-.dir-icon{
+.dir-icon { /* иконка для папки*/
     margin-right: 0.3em;
     padding:0;
 }
 
-.note{
+.note { /* внешний вид div с информацией о заметке */
     margin-left: 2em;
     border-radius: 0.35em;
     border: solid 0.05em var(--bs-secondary);
@@ -54,17 +54,17 @@ input:focus{
     flex-wrap: wrap;
 }
 
-.note_type{
+.note_type { /* для темы */
     margin-top:  0.2em;
     margin-left: 0.3em;
     font-size: 0.8em;
 }
 
-.zero-margin{
+.zero-margin { /* убирает лишние отступы*/
     margin-top: 0;
 }
 
-.area{
+.area { /* для <textarea>, который хранит собственно текст заметки */
     display: flex;
     border-radius: 0.35em;
     border: solid 0.05em var(--bs-secondary);
@@ -74,22 +74,22 @@ input:focus{
     margin-bottom: 0.5rem;
 }
 
-.transparent{
+.transparent { /* делает объект полностью прозрачным */
     border: none;
     background-color: transparent;
     box-shadow: none;
     outline: none;
 }
 
-.bar-icon {
+.bar-icon { /* внешний вид иконок для действий (сохранить, удалить и т.п.) */
     margin-bottom: 0.5rem;
     cursor: pointer;
 }
 
-.shift {
+.shift { /* небольшой отступ сбоку */
     margin-right: 0.2em;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"] { /* цвет галочки */
   accent-color: #dee2e6;
 }

@@ -6,7 +6,7 @@ SqlAlchemyBase = orm.declarative_base()
 
 __factory = None
 
-def global_init(db_file):
+def global_init(db_file): # инициализация orm модели
     global __factory
 
     if __factory:
@@ -25,6 +25,6 @@ def global_init(db_file):
 
     SqlAlchemyBase.metadata.create_all(engine)
 
-def create_session() -> Session:
+def create_session() -> Session: # создание сессии
     global __factory
     return __factory()

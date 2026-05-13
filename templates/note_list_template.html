@@ -7,38 +7,34 @@
 </head>
     <div>
         <a href="/add_note" class="button bg-secondary-subtle">Добавить заметку</a>
-        <div class="flex_div">
-            <p class="button bg-secondary-subtle grow_button shift">button</p>
-            <p class="button bg-secondary-subtle grow_button">button</p>
-        </div>
         <select class="form-select button" name="filter-request" hx-get="/filter" hx-trigger="change"
-                hx-target="#results">
+                hx-target="#results"> <!-- выпадающий список, теги с hx- использование HTMX -->
             <option selected value="">Нет фильтра</option>
             {% for type in type_list %}
                 <option value="{{type}}">{{type}}</option>
             {% endfor %}
         </select>
-        <div class="flex_div">
+        <div class="flex_div"> <!-- строка для поиска -->
             <input type="text" placeholder="Поиск" name="search-request" hx-get="/search"
-                   class="button grow_button input" hx-trigger="keyup changed delay:250ms" hx-target="#results"/>
+                   class="button grow input" hx-trigger="keyup changed delay:250ms" hx-target="#results"/>
         </div>
     </div>
-    <div id="results">
+    <div id="results"> <!-- список всех заметок, HTMX заменит его на результат после использования списка или поиска -->
         {% for dir in dir_list %}
             <p class="bg-secondary-subtle directory">
                 <img src="/static/img/folder.svg" class="icon dir-icon">
                 {% if dir != '' %}
                     {{dir}}
                 {% else %}
-                    Мои заметки
+                    Мои заметки <!-- все заметки без папки пойдут сюда -->
                 {% endif %}
             </p>
             {% for note in dict_notes[dir] %}
-                <div class="note">
+                <div class="note"> <!-- div с информацией о заметке -->
                     <div class="flex_div">
                         <img src="/static/img/note.svg" class="icon">
                         <a class="small_p" href="user/{{current_user.name}}/{{note['id']}}">{{note['title']}}</a>
-                        <div class="flex_div grow_button"></div>
+                        <div class="flex_div grow"></div>
                         <p class="small_p note_type">{{note['type']}}</p>
                     </div>
                     <p class="small_p note_type zero-margin">{{note['content'][:150] + '...'}}</p>

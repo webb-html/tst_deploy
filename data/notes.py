@@ -3,8 +3,7 @@ from sqlalchemy import orm
 from sqlalchemy_serializer import SerializerMixin
 from .db_session import SqlAlchemyBase
 
-
-class Note(SqlAlchemyBase, SerializerMixin):
+class Note(SqlAlchemyBase, SerializerMixin): # класс заметки
     __tablename__ = 'notes'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
