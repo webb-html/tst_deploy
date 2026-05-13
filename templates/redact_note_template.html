@@ -18,6 +18,8 @@
             <p class="small_p shift">Открыт для просмотра</p>
             {{ form.public }}
             <div class="grow_button"></div>
+            <img src="/static/img/download.svg" class="icon bar-icon"
+                 onclick="document.location='/user/{{user_name}}/{{note_id}}/download'">
             <button type="submit" name="submit" class="transparent">
                 <img src="/static/img/save.svg" class="icon bar-icon" alt="Сохранить">
             </button>

@@ -1,4 +1,6 @@
-from flask import Flask, redirect, render_template, jsonify
+from io import BytesIO
+
+from flask import Flask, redirect, render_template, send_file
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_restful import Api
 from flask import request as flask_request
@@ -38,10 +40,10 @@ def index():
         for dir in dir_list:
             dict_notes[dir] = [note for note in notes_json['note'] if note['user_id'] == current_user.id and
                                note['directory'] == dir][::-1]
-        return render_template('note_list_template.html', title='Главная',
-                               dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes,
-                               type_list=sorted(list(set(type_list)))[1:])
-    return render_template('please_register_template.html', title='Главная')
+        return render_template('note_list_template.html', dir_list=sorted(list(set(dir_list))),
+                               dict_notes=dict_notes, type_list=sorted(list(set(type_list)))[1:])
+    return render_template('notification_template.html', content='Пожалуйста, зарегистрируйтесь или войдите',
+                           type='rg')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,19 +57,19 @@ def login():
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    return render_template('login_template.html', title='Авторизация', form=form)
+    return render_template('login_template.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_repeat.data:
-            return render_template('register_template.html', title='Регистрация',
+            return render_template('register_template.html',
                                    form=form,
                                    message="Пароли не совпадают")
         db_sess = db_session.create_session()
         if db_sess.query(User).filter(User.name == form.name.data).first():
-            return render_template('register_template.html', title='Регистрация',
+            return render_template('register_template.html',
                                    form=form,
                                    message="Такой пользователь уже есть")
         user = User(name=form.name.data)
@@ -75,7 +77,7 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('register_template.html', title='Регистрация', form=form)
+    return render_template('register_template.html', form=form)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -92,7 +94,10 @@ def logout():
 def open_note(user_name, note_id):
     notes_json = get(f'{APP_URL}/api/notes').json()
     form = RedactForm()
-    current_note = list(filter(lambda x: x['id'] == note_id, notes_json['note']))[0]
+    try:
+        current_note = list(filter(lambda x: x['id'] == note_id, notes_json['note']))[0]
+    except Exception:
+        return render_template('notification_template.html', content='Эта страница не найдена', type='nf')
     if form.validate_on_submit():
         put(f'{APP_URL}/api/notes/{note_id}', json={'title': form.title.data, 'content': form.textarea.data,
                                                'directory': form.directory.data, 'type': form.type.data,
@@ -109,9 +114,10 @@ def open_note(user_name, note_id):
     if current_note['public']:
         return render_template('view_note_template.html', title=current_note['title'],
                                directory=current_note['directory'], type=current_note['type'],
-                               textarea=current_note['content'])
+                               textarea=current_note['content'], user_name=user_name, note_id=note_id)
     else:
-        return render_template("don't_have_permission.html")
+        return render_template("notification_template.html",
+                               content='Вы не имеете доступа к этой странице', type='pr')
 
 @app.route('/user/<user_name>/<int:note_id>/delete', methods=['GET', 'POST'])
 def delete_note(user_name, note_id):
@@ -125,7 +131,8 @@ def delete_note(user_name, note_id):
         if current_user.id == current_note['user_id']:
             return render_template('delete_note_template.html', form=form, user_name=user_name,
                                    note_id=note_id)
-    return render_template("don't_have_permission.html")
+    return render_template("notification_template.html", content='Вы не имеете доступа к этой странице',
+                           type='pr')
 
 @app.route('/add_note')
 def add_note():
@@ -159,6 +166,21 @@ def _filter():
                            note['directory'] == dir and query.lower() in note['type'].lower()][::-1]
     return render_template('search_result.html', title='Главная',
                            dir_list=sorted(list(set(dir_list))), dict_notes=dict_notes)
+
+@app.route('/user/<user_name>/<int:note_id>/download')
+def download_note(user_name, note_id):
+    notes_json = get(f'{APP_URL}/api/notes').json()
+    try:
+        current_note = list(filter(lambda x: x['id'] == note_id, notes_json['note']))[0]
+    except Exception:
+        return render_template('notification_template.html', content='Эта страница не найдена', type='nf')
+    if current_user.is_authenticated:
+        if current_user.id == current_note['user_id']:
+            return send_file(BytesIO(current_note['content'].encode('utf-8')),
+                             download_name=current_note['title'] + '.txt', as_attachment=True)
+    if current_note['public']:
+        return send_file(BytesIO(current_note['content'].encode('utf-8')),
+                         download_name=current_note['title'] + '.txt', as_attachment=True)
 
 if __name__ == '__main__':
     db_session.global_init("db/data.db")

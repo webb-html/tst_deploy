@@ -11,6 +11,11 @@
         <input class="button grow_button shift" placeholder="Папка" value='{{directory}}' disabled/>
         <input class="button grow_button" placeholder="Тема" value='{{type}}' disabled/>
     </div>
+    <div class="flex_div">
+        <div class="grow_button"></div>
+        <img src="/static/img/download.svg" class="icon bar-icon"
+                     onclick="document.location='/user/{{user_name}}/{{note_id}}/download'"/>
+    </div>
     <div class="form-floating area">
         <textarea class="form-control" placeholder="Начните писать записку!" id="content-area"
                   style="min-height: 30em;" disabled>{{textarea}}</textarea>

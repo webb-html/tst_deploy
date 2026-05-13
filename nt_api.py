@@ -17,6 +17,7 @@ def abort_if_news_not_found(id):
     if not note:
         abort(404, message=f"note {id} not found")
 
+
 class NoteResource(Resource):
     def get(self, id):
         abort_if_news_not_found(id)
