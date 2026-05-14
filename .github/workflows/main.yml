@@ -1,0 +1,21 @@
+# .github/workflows/deploy.yml
+name: Run start.sh
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # позволяет запускать вручную из интерфейса GitHub
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make start.sh executable
+        run: chmod +x start.sh
+
+      - name: Execute start.sh
+        run: ./start.sh
