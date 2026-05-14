@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+mkdir -p db
 export PORT=5000
 unset PIP_USER
 
