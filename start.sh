@@ -1,5 +1,5 @@
 #!/bin/bash
-cd WebNote # Your app working directory!!!
+#cd WebNote # Your app working directory!!!
 export PORT=5000
 unset PIP_USER
 
