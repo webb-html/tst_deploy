@@ -31,7 +31,7 @@ api.add_resource(NoteResource, '/api/notes/<int:id>')
 login_manager = LoginManager() # инициализация менеджера для управления текущим пользователем
 login_manager.init_app(app)
 
-APP_URL = 'http://127.0.0.1:8080'
+APP_URL = 'http://127.0.0.1:5000'
 
 @app.route('/')
 @app.route('/index')
@@ -234,4 +234,4 @@ def download_note(user_name, note_id): # скачивание файла
 if __name__ == '__main__':
     db_session.global_init("db/data.db")
     print(f'server is running {APP_URL}')
-    serve(app, port=os.environ.get("PORT", 8080), host='0.0.0.0')
+    serve(app, port=os.environ.get("PORT", 5000), host='0.0.0.0')

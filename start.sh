@@ -1,6 +1,6 @@
 #!/bin/bash
 cd WebNote # Your app working directory!!!
-export PORT=8080
+export PORT=5000
 unset PIP_USER
 
 # Create venv if not exists
