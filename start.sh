@@ -20,5 +20,8 @@ if [ -f "requirements.txt" ]; then
     pip install -r requirements.txt || echo "Pip install failed, but continuing as packages might be pre-installed via system."
 fi
 
+echo "Current working directory: $(pwd)"
+ls -la db/
+
 echo "Starting application..."
 python app.py
