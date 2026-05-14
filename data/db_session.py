@@ -18,7 +18,7 @@ def global_init(db_file): # инициализация orm модели
         raise Exception("Необходимо указать файл базы данных.")
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(BASE_DIR, '..', 'db', 'data.db')  # если db в корне проекта
-    conn_str = f'sqlite:///{db_path}?check_same_thread=False'
+    conn_str = f'sqlite:///db/data.db?check_same_thread=False'
     print(f"Подключение к базе данных по адресу {conn_str}")
 
     engine = sa.create_engine(conn_str, echo=False)
