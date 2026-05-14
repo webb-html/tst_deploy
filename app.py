@@ -7,6 +7,10 @@ from requests import get, post, put, delete
 
 from io import BytesIO # необходимо для загрузки заметки в файле без его создания
 
+import os
+
+from waitress import serve # для запуска сервера
+
 from forms.login_form import LoginForm # импортирование форм
 from forms.register_form import RegisterForm
 from forms.redact_note_form import RedactForm
@@ -229,4 +233,5 @@ def download_note(user_name, note_id): # скачивание файла
 
 if __name__ == '__main__':
     db_session.global_init("db/data.db")
-    app.run(port=8080, host='127.0.0.1')
+    print(f'server is running {APP_URL}')
+    serve(app, port=os.environ.get("PORT", 8080), host='0.0.0.0')
